@@ -6,7 +6,7 @@ import joblib
 app = Flask(__name__)
 
 
-# CARGA DEL MODELO
+# CARGA DEL MODELO.
 model = joblib.load("src/models/random_forest_optimized.joblib")
 
 # Sustituir por la mediana real calculada en el train
