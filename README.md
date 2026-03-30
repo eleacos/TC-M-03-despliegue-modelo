@@ -23,14 +23,13 @@ El modelo final utilizada es un **Random Forest optimizado** serializado en form
 ### Estructura del repositorio
 ├── src/
 │   ├── data/            # Muestra del dataset
+|   ├── experiments/     # Pruebas y notebooks de testeo
 │   ├── img/             # Visualizaciones
 │   ├── models/          # Modelos entrenados (.joblib)
 │   ├── notebooks/       # EDA y modelado
-|   ├── tests/           # Pruebas y notebooks de testeo
 │   └── utils/           # Funciones auxiliares
-├── main.py/             # Código de la API (FastAPI)
-├── tests/               # Pruebas y notebooks de testeo
-├── test_api_fast.ipynb  # Consumo de la API
+├── api.py/              # Código de la API (FastAPI)
+├── test_api.ipynb       # Consumo de la API
 └── README.md
 
 ---
