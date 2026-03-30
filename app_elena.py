@@ -69,14 +69,57 @@ def feature_engineering(df_in):
 
 # Endopoint 1 /
 # Enruta la landing page: describe todos los endpoints disponibles y cómo usarlos.
+
 @app.route("/", methods=["GET"])
 def home():
-    return "Bienvenido a mi API - Predicción de cancelaciones hoteleras"
+    return """
+    <h1>API — Predicción de cancelaciones hoteleras</h1>
+    <p>Modelo: <b>Random Forest optimizado</b> &nbsp;|&nbsp;
+       Target: <code>is_canceled</code> &nbsp;(0 = no cancela, 1 = cancela)</p>
+    <hr>
 
+    <h2>Endpoints disponibles</h2>
 
-"""
-PENDIENTE: solo saludo para comproboar funcionalidad
-"""
+    <h3>GET /api/v1/predict</h3>
+    <p>Predicción para una reserva individual.
+    Los parámetros se pasan como <b>query string</b>.</p>
+    <table border="1" cellpadding="5">
+      <tr><th>Parámetro</th><th>Tipo</th><th>Descripción / Valores de ejemplo</th></tr>
+      <tr><td>hotel</td><td>str</td><td>Resort Hotel | City Hotel</td></tr>
+      <tr><td>customer_type</td><td>str</td><td>Transient | Contract | Group | Transient-Party</td></tr>
+      <tr><td>market_segment</td><td>str</td><td>Online TA | Offline TA/TO | Direct | Corporate | ...</td></tr>
+      <tr><td>deposit_type</td><td>str</td><td>No Deposit | Non Refund | Refundable</td></tr>
+      <tr><td>meal</td><td>str</td><td>BB | HB | FB | SC | Undefined</td></tr>
+      <tr><td>country</td><td>str</td><td>Código ISO-3166, p.ej. PRT, ESP, GBR</td></tr>
+      <tr><td>distribution_channel</td><td>str</td><td>TA/TO | Direct | Corporate | GDS | Undefined</td></tr>
+      <tr><td>reserved_room_type</td><td>str</td><td>A | B | C | D | E | F | G | H | L</td></tr>
+      <tr><td>is_repeated_guest</td><td>int</td><td>0 = cliente nuevo | 1 = cliente repetido</td></tr>
+      <tr><td>lead_time</td><td>int</td><td>Días de antelación de la reserva</td></tr>
+      <tr><td>previous_cancellations</td><td>int</td><td>Cancelaciones previas del cliente</td></tr>
+      <tr><td>adults</td><td>int</td><td>Número de adultos</td></tr>
+      <tr><td>days_in_waiting_list</td><td>int</td><td>Días en lista de espera</td></tr>
+      <tr><td>adr</td><td>float</td><td>Precio medio diario (Average Daily Rate)</td></tr>
+      <tr><td>previous_bookings_not_canceled</td><td>int</td><td>Reservas previas no canceladas</td></tr>
+      <tr><td>booking_changes</td><td>int</td><td>Cambios realizados en la reserva</td></tr>
+      <tr><td>required_car_parking_spaces</td><td>int</td><td>Plazas de parking requeridas</td></tr>
+      <tr><td>total_of_special_requests</td><td>int</td><td>Número de peticiones especiales</td></tr>
+    </table>
+    <br>
+    <b>Ejemplo:</b><br>
+    <code>
+    /api/v1/predict?hotel=Resort+Hotel&amp;customer_type=Transient&amp;market_segment=Online+TA
+    &amp;deposit_type=No+Deposit&amp;meal=BB&amp;country=PRT&amp;distribution_channel=TA%2FTO
+    &amp;reserved_room_type=A&amp;is_repeated_guest=0&amp;lead_time=120
+    &amp;previous_cancellations=0&amp;adults=2&amp;days_in_waiting_list=0
+    &amp;adr=85&amp;previous_bookings_not_canceled=0&amp;booking_changes=0
+    &amp;required_car_parking_spaces=0&amp;total_of_special_requests=1
+    </code>
+
+    <h3>GET /api/v1/model_info &nbsp;
+        <span style="color:gray">[disponible tras el redespliegue en la exposición]</span>
+    </h3>
+    <p>Devuelve información del modelo activo: tipo, steps del pipeline, versión.</p>
+    """
 
 
 # Endopoint 0 /api/v1/predict
@@ -137,9 +180,17 @@ def predict():
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
-""""
-PENDIENTE
-"""
+# @app.route("/api/v1/model_info", methods=["GET"])
+# def model_info():
+#     return jsonify({
+#         "model_type":    type(model.named_steps["model"]).__name__,
+#         "model_file":    MODEL_PATH,
+#         "pipeline_steps": list(model.named_steps.keys()),
+#         "n_features_in": int(model.named_steps["model"].n_features_in_),
+#         "target":        "is_canceled (0 = No cancela, 1 = Cancela)",
+#         "version":       "1.0.0",
+#         "description":   "Random Forest optimizado — predicción de cancelaciones hoteleras.",
+#     })
 
 
 
