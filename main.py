@@ -92,6 +92,7 @@ def feature_engineering(df):
 # ENDPOINTS
 # =========================
 
+# Landing
 @app.get("/")
 def home():
     return {
@@ -99,7 +100,7 @@ def home():
         "documentacion": "/docs"
     }
 
-
+# Predict
 @app.post("/predict")
 def predict(data: BookingInput):
     try:
@@ -118,7 +119,14 @@ def predict(data: BookingInput):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+# Comentado para el redespliegue en vivo durante la exposición.
+# Pasos para activarlo:
+#   1. Descomenta las líneas de código
+#   2. git add app.py
+#   3. git commit -m "add RUTA_PTE endpoint"
+#   4. git push origin main
+#   5. Render detecta el push y redespliega automáticamente
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
+# @app.get("/health")
+# def health():
+#     return {"status": "ok"}
