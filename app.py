@@ -149,12 +149,12 @@ def predict():
 
 
 # ENDPOINT EXTRA PARA REDEPLOY
-# @app.route("/health", methods=["GET"])
-# def health():
-#     return jsonify({
-#         "status": "ok",
-#         "mensaje": "Nuevo endpoint desplegado correctamente"
-#     })
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({
+        "status": "ok",
+        "mensaje": "Nuevo endpoint desplegado correctamente"
+    })
 
 
 if __name__ == "__main__":

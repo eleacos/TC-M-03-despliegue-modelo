@@ -183,13 +183,13 @@ def predict():
 # @app.route("/api/v1/model_info", methods=["GET"])
 # def model_info():
 #     return jsonify({
-#         "model_type":    type(model.named_steps["model"]).__name__,
-#         "model_file":    MODEL_PATH,
-#         "pipeline_steps": list(model.named_steps.keys()),
-#         "n_features_in": int(model.named_steps["model"].n_features_in_),
-#         "target":        "is_canceled (0 = No cancela, 1 = Cancela)",
-#         "version":       "1.0.0",
-#         "description":   "Random Forest optimizado — predicción de cancelaciones hoteleras.",
+#         "model_type":type(model.named_steps["model"]).__name__,
+#         "model_file":MODEL_PATH,
+#         "pipeline_steps":list(model.named_steps.keys()),
+#         "n_features_in":int(model.named_steps["model"].n_features_in_),
+#         "target":"is_canceled (0 = No cancela, 1 = Cancela)",
+#         "version":"1.0.0",
+#         "description":"Random Forest optimizado — predicción de cancelaciones hoteleras.",
 #     })
 
 
