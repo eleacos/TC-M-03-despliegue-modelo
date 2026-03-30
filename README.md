@@ -4,26 +4,55 @@
 
 ## 🇪🇸 Español
 
-### Descripción del problema
+### Descripción del proyecto
 
-El objetivo de este proyecto es desplegar el **modelo de Machine Learning "Hotel Booking - Predicción de Cancelaciones de Reservas"**, mediante API REST en el entorno accesible a través de una dirección pública de internet **Render**. 
+Este proyecto tiene como objetivo desplegar un modelo de Machine Learning capaz de predecir si una reserva hotelera será cancelada o no. 
 
-Por accesible se entiende poder hacer una petición con datos de entrada que permitan dar una predicción o etiquetado al modelo y que el servicio devuelva la etiqueta o predicción generada por el modelo. Esta funcionalidad se debe ofrecer a través de un endpoint accesible al menos mediante una petición requests.get de Python. 
+El modelo ha sido expuesto mediante una API REST desarrollada con FastAPI y desplegada en Render, permitiendo su consumo desde cualquier cliente (Python, web, etc.)
 
-Como complemento al anterior endpoint se debe proveer un endopoint ligado al "/" o landingpage que informe de cómo se debe acceder el resto de endpoints (si hay alguno más además del que permita el uso del modelo).
+---
 
-Finalmente, durante la exposición del trabajo además de hacer una prueba in-situ del uso de los endpoints proporcionados por la web-app del grupo, se pedirá hacer una modificación en el código y hacer un redespliegue de forma que se implemente dicho cambio (tened preparado un tercer endpoint comentado para descomentar y redesplegar).
+### Modelo de Machine Learning
+El desarrollo completo del modelo (EDA, feature engineering, entrenamiento y evaluación) se encuentra en el siguiente repositorio: 
+https://github.com/eleacos/ML_hotel_booking.git
 
-### Modelo de Machine Learning utilizado
-El proceso para el desarrollo del modelo utilizado se encuentra en el repositorio de GitHub: https://github.com/eleacos/ML_hotel_booking.git
+El modelo final utilizada es un **Random Forest optimizado** serializado en formato '.joblib'.  
+
+---
 
 ### Estructura del repositorio
+├── src/
+│   ├── data/            # Muestra del dataset
+│   ├── img/             # Visualizaciones
+│   ├── models/          # Modelos entrenados (.joblib)
+│   ├── notebooks/       # EDA y modelado
+|   ├── tests/           # Pruebas y notebooks de testeo
+│   └── utils/           # Funciones auxiliares
+├── main.py/             # Código de la API (FastAPI)
+├── tests/               # Pruebas y notebooks de testeo
+├── test_api_fast.ipynb  # Consumo de la API
+└── README.md
 
-### Tecnologías utilizadas
+---
 
-### Instrucciones de reproducción
+### API REST
+La API permite realizar predicciones a partir de datos de entrada estructurados. 
 
-### Principales resultados
+***URL base***: https://tc-m-03-despliegue-modelo-hu9q.onrender.com 
+
+La API incluye **documentación automática** genera con FastAPI: https://tc-m-03-despliegue-modelo-hu9q.onrender.com/docs
+
+Desde esta interfaz puedes: 
+- Ver todos los endpoints disponibles
+- Consultar los parámetros requeridos
+- Probar la API directamente desde el navegador
+
+---
+
+### Endpoint principal: ´POST/predict´
+Permite obtener una predicción de cancelación.
+
+---
 
 ### Autores
 
