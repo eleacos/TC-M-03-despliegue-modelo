@@ -149,6 +149,7 @@ def predict():
 
 
 # ENDPOINT EXTRA PARA REDEPLOY
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
