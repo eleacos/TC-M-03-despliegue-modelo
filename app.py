@@ -148,7 +148,7 @@ def predict():
         }), 400
 
 
-# ENDPOINT EXTRA PARA REDEPLOY.
+# ENDPOINT EXTRA PARA REDEPLOY...
 
 @app.get("/health", methods=["GET"])
 def health():
