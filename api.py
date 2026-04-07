@@ -17,29 +17,8 @@ model = joblib.load("src/models/random_forest_optimized.joblib")
 LEAD_TIME_MEDIAN = 80 # mediana calculada en entrenamiento
 
 # ESQUEMA DE ENTRADA: 
-# Los 6 primeros son obligatorios para poder comprobar reserva, el resto opcionales con imputación
+# Los 7 primeros son obligatorios para poder comprobar reserva, el resto opcionales con imputación
 
-'''
-class BookingInput(BaseModel):
-    hotel: str
-    customer_type: str
-    market_segment: str
-    deposit_type: str
-    meal: str
-    country: str
-    distribution_channel:           str   = "TA/TO"
-    reserved_room_type:             str   = "A"
-    is_repeated_guest:              int   = 0
-    lead_time:                      float = 80.0
-    previous_cancellations:         float = 0.0
-    adults:                         float = 2.0
-    days_in_waiting_list:           float = 0.0
-    adr:                            float = 100.0
-    previous_bookings_not_canceled: float = 0.0
-    booking_changes:                float = 0.0
-    required_car_parking_spaces:    float = 0.0
-    total_of_special_requests:      float = 0.0
-'''
 class BookingInput(BaseModel):
     # obligatorios:
     hotel: str
@@ -148,9 +127,10 @@ def predict(data: BookingInput):
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
-
+'''
 @app.get("/health")
 def health():
      return {"status": "ok",
             "mensaje": "¡Nuevo endpoint desplegado correctamente! :)"
              }
+'''
