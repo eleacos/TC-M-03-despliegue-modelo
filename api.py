@@ -18,6 +18,8 @@ LEAD_TIME_MEDIAN = 80 # mediana calculada en entrenamiento
 
 # ESQUEMA DE ENTRADA: 
 # Los 6 primeros son obligatorios para poder comprobar reserva, el resto opcionales con imputación
+
+'''
 class BookingInput(BaseModel):
     hotel: str
     customer_type: str
@@ -37,6 +39,29 @@ class BookingInput(BaseModel):
     booking_changes:                float = 0.0
     required_car_parking_spaces:    float = 0.0
     total_of_special_requests:      float = 0.0
+'''
+class BookingInput(BaseModel):
+    # obligatorios:
+    hotel: str
+    market_segment: str
+    deposit_type: str
+    lead_time: float
+    previous_cancellations: float
+    adr: float
+    is_repeated_guest: int
+
+    # opcionales con imputación:
+    customer_type: str = "Transient"
+    meal: str = "BB"
+    country: str = "PRT"
+    distribution_channel: str = "TA/TO"
+    reserved_room_type: str = "A"
+    adults: float = 2.0
+    days_in_waiting_list: float = 0.0
+    previous_bookings_not_canceled: float = 0.0
+    booking_changes: float = 0.0
+    required_car_parking_spaces: float = 0.0
+    total_of_special_requests: float = 0.0
 
 
 # FEATURE ENGINEERING: transforma los datos que recibe igual que en entrenamiento:
