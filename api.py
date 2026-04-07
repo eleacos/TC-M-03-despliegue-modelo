@@ -38,7 +38,7 @@ class BookingInput(BaseModel):
     required_car_parking_spaces:    float = 0.0
     total_of_special_requests:      float = 0.0
 
-    
+
 # FEATURE ENGINEERING: transforma los datos igual que en entrenamiento:
 def feature_engineering(df):
     df = df.copy()
@@ -123,10 +123,9 @@ def predict(data: BookingInput):
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
-'''
+
 @app.get("/health")
 def health():
      return {"status": "ok",
             "mensaje": "¡Nuevo endpoint desplegado correctamente! :)"
              }
-'''
