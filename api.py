@@ -16,22 +16,6 @@ model = joblib.load("src/models/random_forest_optimized.joblib")
 
 LEAD_TIME_MEDIAN = 80
 
-# Valores por defecto para campos opcionales
-DEFAULTS = {
-    "distribution_channel":           "TA/TO",
-    "reserved_room_type":             "A",
-    "is_repeated_guest":              0,
-    "lead_time":                      80.0,
-    "previous_cancellations":         0.0,
-    "adults":                         2.0,
-    "days_in_waiting_list":           0.0,
-    "adr":                            100.0,
-    "previous_bookings_not_canceled": 0.0,
-    "booking_changes":                0.0,
-    "required_car_parking_spaces":    0.0,
-    "total_of_special_requests":      0.0,
-}
-
 # SCHEMA DE ENTRADA
 # Los 6 primeros son obligatorios, el resto opcionales con imputación
 class BookingInput(BaseModel):
@@ -41,19 +25,20 @@ class BookingInput(BaseModel):
     deposit_type: str
     meal: str
     country: str
-    distribution_channel: Optional[str]   = None
-    reserved_room_type: Optional[str]   = None
-    is_repeated_guest: Optional[int]   = None
-    lead_time: Optional[float] = None
-    previous_cancellations: Optional[float] = None
-    adults: Optional[float] = None
-    days_in_waiting_list: Optional[float] = None
-    adr: Optional[float] = None
-    previous_bookings_not_canceled: Optional[float] = None
-    booking_changes: Optional[float] = None
-    required_car_parking_spaces: Optional[float] = None
-    total_of_special_requests: Optional[float] = None
+    distribution_channel:           str   = "TA/TO"
+    reserved_room_type:             str   = "A"
+    is_repeated_guest:              int   = 0
+    lead_time:                      float = 80.0
+    previous_cancellations:         float = 0.0
+    adults:                         float = 2.0
+    days_in_waiting_list:           float = 0.0
+    adr:                            float = 100.0
+    previous_bookings_not_canceled: float = 0.0
+    booking_changes:                float = 0.0
+    required_car_parking_spaces:    float = 0.0
+    total_of_special_requests:      float = 0.0
 
+    
 # FEATURE ENGINEERING: transforma los datos igual que en entrenamiento:
 def feature_engineering(df):
     df = df.copy()
@@ -133,13 +118,15 @@ def predict(data: BookingInput):
 # Comentado para el redespliegue en vivo durante la exposición.
 # Pasos para activarlo:
 #   1. Descomenta las líneas de código
-#   2. git add app.py
+#   2. git add api.py
 #   3. git commit -m "add RUTA_PTE endpoint"
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
+'''
 @app.get("/health")
 def health():
      return {"status": "ok",
             "mensaje": "¡Nuevo endpoint desplegado correctamente! :)"
              }
+'''
