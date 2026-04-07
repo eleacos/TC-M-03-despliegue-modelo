@@ -1,3 +1,5 @@
+# esto es una prueba para Flask, con código HTML en la landing page y enlaces de prueba:
+
 from flask import Flask, request, jsonify
 import pandas as pd
 import numpy as np
@@ -6,14 +8,51 @@ import joblib
 app = Flask(__name__)
 
 
-# CARGA DEL MODELO.
+# 1. CARGA DEL MODELO.
 model = joblib.load("src/models/random_forest_optimized.joblib")
 
 # Representa la mediana calculada en el entrenamiento
 LEAD_TIME_MEDIAN = 80
 
 
+# 2. Recoge y convierte los params de la URL:
+# FUNCIÓN AUXILIAR
+def build_input_from_args(args):
+    campos_requeridos = [
+        "hotel", "customer_type", "market_segment", "deposit_type",
+        "meal", "country", "distribution_channel", "reserved_room_type",
+        "is_repeated_guest", "lead_time", "previous_cancellations",
+        "adults", "days_in_waiting_list", "adr",
+        "previous_bookings_not_canceled", "booking_changes",
+        "required_car_parking_spaces", "total_of_special_requests"
+    ]
+    
+    faltantes = [c for c in campos_requeridos if args.get(c) is None]
+    if faltantes:
+        raise ValueError(f"Faltan los siguientes parámetros: {faltantes}")
 
+    return {
+        "hotel": args.get("hotel"),
+        "customer_type": args.get("customer_type"),
+        "market_segment": args.get("market_segment"),
+        "deposit_type": args.get("deposit_type"),
+        "meal": args.get("meal"),
+        "country": args.get("country"),
+        "distribution_channel": args.get("distribution_channel"),
+        "reserved_room_type": args.get("reserved_room_type"),
+        "is_repeated_guest": int(args.get("is_repeated_guest")),
+        "lead_time": float(args.get("lead_time")),
+        "previous_cancellations": float(args.get("previous_cancellations")),
+        "adults": float(args.get("adults")),
+        "days_in_waiting_list": float(args.get("days_in_waiting_list")),
+        "adr": float(args.get("adr")),
+        "previous_bookings_not_canceled": float(args.get("previous_bookings_not_canceled")),
+        "booking_changes": float(args.get("booking_changes")),
+        "required_car_parking_spaces": float(args.get("required_car_parking_spaces")),
+        "total_of_special_requests": float(args.get("total_of_special_requests"))
+    }
+
+# 3. Transforma los datos igual que en el entrenamiento
 # FEATURE ENGINEERING
 def feature_engineering(df):
     df = df.copy()
@@ -64,6 +103,7 @@ def feature_engineering(df):
 
     return df
 
+# 4. Endpoints:
 
 # LANDING PAGE - con HTML y enlaces de prueba para reserva cancelada y no cancelada
 @app.route("/", methods=["GET"])
@@ -109,32 +149,6 @@ def home():
     """
 
 
-
-# FUNCIÓN AUXILIAR
-def build_input_from_args(args):
-    return {
-        "hotel": args.get("hotel"),
-        "customer_type": args.get("customer_type"),
-        "market_segment": args.get("market_segment"),
-        "deposit_type": args.get("deposit_type"),
-        "meal": args.get("meal"),
-        "country": args.get("country"),
-        "distribution_channel": args.get("distribution_channel"),
-        "reserved_room_type": args.get("reserved_room_type"),
-        "is_repeated_guest": int(args.get("is_repeated_guest")),
-        "lead_time": float(args.get("lead_time")),
-        "previous_cancellations": float(args.get("previous_cancellations")),
-        "adults": float(args.get("adults")),
-        "days_in_waiting_list": float(args.get("days_in_waiting_list")),
-        "adr": float(args.get("adr")),
-        "previous_bookings_not_canceled": float(args.get("previous_bookings_not_canceled")),
-        "booking_changes": float(args.get("booking_changes")),
-        "required_car_parking_spaces": float(args.get("required_car_parking_spaces")),
-        "total_of_special_requests": float(args.get("total_of_special_requests"))
-    }
-
-
-
 # ENDPOINT DE PREDICCIÓN
 @app.route("/predict", methods=["GET"])
 def predict():
@@ -172,3 +186,4 @@ def health():
 
 if __name__ == "__main__":
     app.run(debug=True)
+

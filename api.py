@@ -2,9 +2,9 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
-from typing import Optional
 import joblib
 
+# CREACIÓN DE API
 app = FastAPI(
     title="API de predicción de cancelaciones hoteleras",
     description="Modelo Random Forest optimizado",
@@ -14,10 +14,10 @@ app = FastAPI(
 # CARGA DEL MODELO
 model = joblib.load("src/models/random_forest_optimized.joblib")
 
-LEAD_TIME_MEDIAN = 80
+LEAD_TIME_MEDIAN = 80 # mediana calculada en entrenamiento
 
-# SCHEMA DE ENTRADA
-# Los 6 primeros son obligatorios, el resto opcionales con imputación
+# ESQUEMA DE ENTRADA: 
+# Los 6 primeros son obligatorios para poder comprobar reserva, el resto opcionales con imputación
 class BookingInput(BaseModel):
     hotel: str
     customer_type: str
@@ -39,7 +39,7 @@ class BookingInput(BaseModel):
     total_of_special_requests:      float = 0.0
 
 
-# FEATURE ENGINEERING: transforma los datos igual que en entrenamiento:
+# FEATURE ENGINEERING: transforma los datos que recibe igual que en entrenamiento:
 def feature_engineering(df):
     df = df.copy()
 
@@ -123,9 +123,10 @@ def predict(data: BookingInput):
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
-
+'''
 @app.get("/health")
 def health():
      return {"status": "ok",
             "mensaje": "¡Nuevo endpoint desplegado correctamente! :)"
              }
+'''
