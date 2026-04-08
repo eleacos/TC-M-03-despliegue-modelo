@@ -142,9 +142,10 @@ def predict(data: BookingInput):
 #   4. git push origin main
 #   5. Render detecta el push y redespliega automáticamente
 
-
+'''
 @app.get("/health")
 def health():
      return {"status": "ok",
             "mensaje": "¡Nuevo endpoint desplegado correctamente! :)"
              }
+'''
