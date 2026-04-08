@@ -115,33 +115,47 @@ def home():
             <p><b>Modelo:</b> Random Forest optimizado</p>
             <p><b>Endpoint:</b> /predict</p>
             <p><b>Método:</b> GET</p>
-            <p><b>Parámetros esperados:</b></p>
-            <ul>
-                <li>hotel</li>
-                <li>customer_type</li>
-                <li>market_segment</li>
-                <li>deposit_type</li>
-                <li>meal</li>
-                <li>country</li>
-                <li>distribution_channel</li>
-                <li>reserved_room_type</li>
-                <li>is_repeated_guest</li>
-                <li>lead_time</li>
-                <li>previous_cancellations</li>
-                <li>adults</li>
-                <li>days_in_waiting_list</li>
-                <li>adr</li>
-                <li>previous_bookings_not_canceled</li>
-                <li>booking_changes</li>
-                <li>required_car_parking_spaces</li>
-                <li>total_of_special_requests</li>
-            </ul>
+
+        <p><b>Parámetros obligatorios:</b></p>
+        <ul>
+            <li>hotel (str)</li>
+            <li>market_segment (str)</li>
+            <li>deposit_type (str)</li>
+            <li>lead_time (float)</li>
+            <li>previous_cancellations (float)</li>
+            <li>adr (float)</li>
+            <li>is_repeated_guest (int)</li>
+        </ul>
+
+        <p><b>Parámetros opcionales (con valores por defecto):</b></p>
+        <ul>
+            <li>customer_type (str = "Transient")</li>
+            <li>meal (str = "BB")</li>
+            <li>country (str = "PRT")</li>
+            <li>distribution_channel (str = "TA/TO")</li>
+            <li>reserved_room_type (str = "A")</li>
+            <li>adults (float = 2.0)</li>
+            <li>days_in_waiting_list (float = 0.0)</li>
+            <li>previous_bookings_not_canceled (float = 0.0)</li>
+            <li>booking_changes (float = 0.0)</li>
+            <li>required_car_parking_spaces (float = 0.0)</li>
+            <li>total_of_special_requests (float = 0.0)</li>
+        </ul>
+
+            <p><i>Nota: si falta algún parámetro obligatorio, la API devolverá un error.</i></p>
+
             <p><b>Ejemplo reserva cancelada:</b> 
                 <a href="/predict?hotel=Resort%20Hotel&customer_type=Transient&market_segment=Online%20TA&deposit_type=No%20Deposit&meal=BB&country=PRT&distribution_channel=TA/TO&reserved_room_type=A&is_repeated_guest=0&lead_time=120&previous_cancellations=0&adults=2&days_in_waiting_list=0&adr=95.5&previous_bookings_not_canceled=0&booking_changes=1&required_car_parking_spaces=0&total_of_special_requests=1">
                 Prueba aquí
             </a></p>
+
             <p><b>Ejemplo reserva no cancelada:</b> 
                 <a href="/predict?hotel=Resort%20Hotel&customer_type=Transient&market_segment=Direct&deposit_type=Non%20Refund&meal=BB&country=PRT&distribution_channel=Direct&reserved_room_type=A&is_repeated_guest=1&lead_time=10&previous_cancellations=0&adults=2&days_in_waiting_list=0&adr=90&previous_bookings_not_canceled=5&booking_changes=0&required_car_parking_spaces=1&total_of_special_requests=2">
+                Prueba aquí
+            </a></p>
+
+            <p><b>Ejemplo con error (faltan parámetros):</b> 
+                <a href="/predict?hotel=Resort%20Hotel&customer_type=Transient&market_segment=Direct&deposit_type=Non%20Refund&meal=BB&country=PRT&distribution_channel=Direct&reserved_room_type=A&is_repeated_guest=1&lead_time=10&previous_cancellations=0&days_in_waiting_list=0&previous_bookings_not_canceled=5&booking_changes=0&required_car_parking_spaces=1&total_of_special_requests=2">
                 Prueba aquí
             </a></p>
         </body>
@@ -175,13 +189,15 @@ def predict():
 
 
 # ENDPOINT EXTRA PARA REDEPLOY
-
+'''
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
         "status": "ok",
         "mensaje": "Nuevo endpoint desplegado correctamente"
     })
+
+'''
 
 
 if __name__ == "__main__":
