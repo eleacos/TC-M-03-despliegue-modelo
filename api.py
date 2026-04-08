@@ -92,6 +92,8 @@ def feature_engineering(df):
 
 # ENDPOINTS
 
+
+'''
 # Landing
 @app.get("/")
 def home():
@@ -99,6 +101,30 @@ def home():
         "mensaje": "API de predicción de cancelaciones hoteleras",
         "documentacion": "/docs"
     }
+'''
+
+# landing page con info y endpoints disponibles
+@app.get("/")
+def home():
+    return {
+        "mensaje": "API de predicción de cancelaciones hoteleras",
+        "endpoints": {
+            "docs": "/docs",
+            "predict": "/predict",
+            "health": "/health"
+        },
+        "metodo_predict": "POST",
+        "parametros_obligatorios": [
+            "hotel",
+            "customer_type",
+            "market_segment",
+            "deposit_type",
+            "meal",
+            "country"
+        ],
+        "nota": "El resto de parámetros son opcionales y tienen valores por defecto"
+    }
+
 
 # Predict
 @app.post("/predict")
